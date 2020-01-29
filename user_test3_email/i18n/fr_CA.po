@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* user-test
+# 	* user_test3_email
 #
 msgid ""
 msgstr ""
@@ -17,8 +17,8 @@ msgstr ""
 "Language: fr_CA\n"
 "X-Generator: Poedit 2.2.1\n"
 
-#. module: user-test
-#: code:addons/user-test/hooks.py:21
+#. module: user_test3_email
+#: code:addons/user_test3_email/hooks.py:22
 #, python-format
-msgid "Cancel installation module user-test, please specify --dev [options] in your instance."
-msgstr "L'installation du module user-test est annulée, veuillez spécifier l'option --dev dans votre instance."
+msgid "Cancel installation module user_test3_email, please specify --dev [options] in your instance."
+msgstr "L'installation du module user_test3_email est annulée, veuillez spécifier l'option --dev dans votre instance."
