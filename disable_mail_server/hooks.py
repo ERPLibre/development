@@ -16,3 +16,4 @@ def post_init_hook(cr, e):
     with api.Environment.manage():
         env = api.Environment(cr, SUPERUSER_ID, {})
         env['ir.mail_server'].search([]).unlink()
+        env['fetchmail.server'].search([]).unlink()
