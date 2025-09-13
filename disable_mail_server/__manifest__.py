@@ -2,7 +2,7 @@
 
 {
     'name': 'disable_mail_server',
-    'version': '0.1',
+    'version': "17.0.1.0.0",
     'author': "MathBenTech",
     'website': 'https://mathben.tech',
     'license': 'AGPL-3',
@@ -14,7 +14,8 @@ disable_mail_server
 Remove all mail server in dev to don't send email when dev.
 """,
     'depends': [
-        'base'
+        'base',
+        'mail'
     ],
     'data': [
     ],
