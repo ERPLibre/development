@@ -8,28 +8,24 @@ _logger = logging.getLogger(__name__)
 login = 'test'
 
 
-def uninstall_hook(cr, _):
-    with api.Environment.manage():
-        env = api.Environment(cr, SUPERUSER_ID, {})
-        user_test = env['res.users'].search([('login', '=', login)])
-        if user_test:
-            user_test.unlink()
+def uninstall_hook(env):
+    user_test = env['res.users'].search([('login', '=', login)])
+    if user_test:
+        user_test.unlink()
 
 
-def post_init_hook(cr, e):
+def post_init_hook(env):
     # Ignore
     if not odoo.tools.config['dev_mode']:
         raise Exception(_("Cancel installation module user_test, please specify --dev [options] in your instance."))
 
-    with api.Environment.manage():
-        env = api.Environment(cr, SUPERUSER_ID, {})
-        # Copy the profile of default user and copy the system user permission
-        system_user = env['res.users'].browse(1)
-        first_user = env['res.users'].browse(2)
-        user_test_info = {
-            "name": "test",
-            "login": login,
-            "new_password": "test",
-            'groups_id': [a.id for a in system_user.groups_id]
-        }
-        first_user.copy(user_test_info)
+    # Copy the profile of default user and copy the system user permission
+    system_user = env['res.users'].browse(1)
+    first_user = env['res.users'].browse(2)
+    user_test_info = {
+        "name": "test",
+        "login": login,
+        "new_password": "test",
+        'groups_id': [a.id for a in system_user.groups_id]
+    }
+    first_user.copy(user_test_info)
