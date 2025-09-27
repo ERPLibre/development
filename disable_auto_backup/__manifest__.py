@@ -14,7 +14,8 @@ disable_auto_backup
 Remove all backup in dev to don't send email when dev.
 """,
     'depends': [
-        'base'
+        'base',
+        'auto_backup'
     ],
     'data': [
     ],

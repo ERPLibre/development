@@ -14,7 +14,8 @@ disable_mail_server
 Remove all mail server in dev to don't send email when dev.
 """,
     'depends': [
-        'base'
+        'base',
+        'fetchmail'
     ],
     'data': [
     ],
