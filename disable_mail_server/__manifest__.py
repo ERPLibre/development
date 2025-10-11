@@ -13,7 +13,7 @@ disable_mail_server
 ===================
 Remove all mail server in dev to don't send email when dev.
 """,
-    "depends": ["base"],
+    "depends": ["base", "mail"],
     "data": [],
     "post_init_hook": "post_init_hook",
     "installable": True,

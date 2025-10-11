@@ -13,7 +13,7 @@ disable_auto_backup
 ===================
 Remove all backup in dev to don't send email when dev.
 """,
-    "depends": ["base"],
+    "depends": ["base", "auto_backup"],
     "data": [],
     "post_init_hook": "post_init_hook",
     "installable": True,
