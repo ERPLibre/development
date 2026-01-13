@@ -42,4 +42,11 @@ def post_init_hook(env):
         "chatter_position": "side",
     }
     copied_user = first_user.copy(user_test_info)
-    copied_user.write({"active": True, "new_password": login, "password": login})
+    copied_user.write(
+        {
+            "active": True,
+            "new_password": login,
+            "password": login,
+            "email": "test@example.com",
+        }
+    )
