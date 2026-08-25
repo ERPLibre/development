@@ -2,7 +2,7 @@
 
 {
     "name": "disable_mail_server",
-    "version": "14.0.1.0",
+    "version": "15.0.0.1",
     "author": "MathBenTech",
     "website": "https://mathben.tech",
     "license": "AGPL-3",
@@ -13,7 +13,7 @@ disable_mail_server
 ===================
 Remove all mail server in dev to don't send email when dev.
 """,
-    "depends": ["base", "mail"],
+    "depends": ["base", "mail", "fetchmail"],
     "data": [],
     "post_init_hook": "post_init_hook",
     "installable": True,

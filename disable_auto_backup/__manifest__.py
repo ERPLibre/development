@@ -2,7 +2,7 @@
 
 {
     "name": "disable_auto_backup",
-    "version": "14.0.1.0",
+    "version": "15.0.0.1",
     "author": "MathBenTech",
     "website": "https://mathben.tech",
     "license": "AGPL-3",
