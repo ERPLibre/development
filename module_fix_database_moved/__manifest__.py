@@ -2,7 +2,7 @@
 
 {
     'name': 'module_fix_database_moved',
-    'version': '0.1',
+    'version': '13.0.0.1',
     'author': "TechnoLibre",
     'website': 'https://technolibre.ca',
     'license': 'AGPL-3',

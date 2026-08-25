@@ -14,6 +14,6 @@ def post_init_hook(cr, e):
 
     with api.Environment.manage():
         env = api.Environment(cr, SUPERUSER_ID, {})
-        contacts = env['mail.mass_mailing.contact'].search([])
+        contacts = env['mailing.contact'].search([])
         for contact in contacts:
             contact.email = ""

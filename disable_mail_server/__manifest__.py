@@ -2,7 +2,7 @@
 
 {
     'name': 'disable_mail_server',
-    'version': '0.1',
+    'version': '13.0.0.1',
     'author': "MathBenTech",
     'website': 'https://mathben.tech',
     'license': 'AGPL-3',

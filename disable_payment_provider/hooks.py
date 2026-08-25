@@ -34,5 +34,5 @@ def post_init_hook(cr, e):
         if not records:
             _logger.info("disable_payment_provider: no payment.acquirer to disable.")
             return
-        records.write({"website_published": False, "environment": "test"})
+        records.write({"state": "disabled"})
         _logger.info("disable_payment_provider: disabled %s payment.acquirer(s).", len(records))
