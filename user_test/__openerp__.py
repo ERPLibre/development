@@ -2,7 +2,7 @@
 
 {
     "name": "user_test",
-    "version": "10.0.1.0.0",
+    "version": "8.0.1.0.0",
     "author": "MathBenTech",
     "website": "https://mathben.tech",
     "license": "AGPL-3",

@@ -3,14 +3,24 @@
 
 import logging
 
-import odoo
-from odoo import SUPERUSER_ID, _, api
+import os
+
+import openerp
+from openerp import SUPERUSER_ID, _, api
 
 _logger = logging.getLogger(__name__)
 
 
+def mode_developpement():
+    """Le mode développeur : --dev en Odoo 9, ERPLIBRE_DEV_MODE en 8, qui
+    n'a pas l'option et où odoo_bin.sh le passe par l'environnement."""
+    return openerp.tools.config.get("dev_mode") or os.environ.get(
+        "ERPLIBRE_DEV_MODE"
+    )
+
+
 def post_init_hook(cr, e):
-    if not odoo.tools.config["dev_mode"]:
+    if not mode_developpement():
         raise Exception(
             _(
                 "Cancel installation module disable_payment_provider, "
@@ -23,7 +33,7 @@ def post_init_hook(cr, e):
         # Le module `payment` n'est pas installé : il n'y a rien à désactiver,
         # et ce n'est pas une erreur. Dépendre de `payment` pour s'en assurer
         # l'INSTALLERAIT, ce qui serait pire que le problème.
-        if "payment.acquirer" not in env:
+        if "payment.acquirer" not in env.registry:
             _logger.info("disable_payment_provider: payment.acquirer is not in this database.")
             return
         # active_test=False : `payment.acquirer` porte un champ `active` de
@@ -35,5 +45,8 @@ def post_init_hook(cr, e):
         if not records:
             _logger.info("disable_payment_provider: no payment.acquirer to disable.")
             return
-        records.write({"website_published": False, "environment": "test"})
+        # website_published et environment ne sont pas de toutes les
+        # versions : n'écrire que ceux que le modèle porte.
+        valeurs = {"website_published": False, "environment": "test"}
+        records.write({k: v for k, v in valeurs.items() if k in records._fields})
         _logger.info("disable_payment_provider: disabled %s payment.acquirer(s).", len(records))

@@ -1,11 +1,22 @@
+# -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import logging
 
-import odoo
-from odoo import SUPERUSER_ID, _, api
+import os
+
+import openerp
+from openerp import SUPERUSER_ID, _, api
 
 _logger = logging.getLogger(__name__)
+
+
+def mode_developpement():
+    """Le mode développeur : --dev en Odoo 9, ERPLIBRE_DEV_MODE en 8, qui
+    n'a pas l'option et où odoo_bin.sh le passe par l'environnement."""
+    return openerp.tools.config.get("dev_mode") or os.environ.get(
+        "ERPLIBRE_DEV_MODE"
+    )
 login = "test"
 
 
@@ -20,7 +31,7 @@ def uninstall_hook(cr, registry):
 def post_init_hook(cr, registry):
     env = api.Environment(cr, SUPERUSER_ID, {})
     # Ignore
-    if not odoo.tools.config["dev_mode"]:
+    if not mode_developpement():
         raise Exception(
             _(
                 "Cancel installation module user_test, please specify --dev [options] in your instance."
@@ -28,7 +39,7 @@ def post_init_hook(cr, registry):
         )
 
     # Copy the profile of default user and copy the system user permission
-    # En Odoo 10 et 11, l'administrateur EST l'utilisateur 1 : il n'y a pas
+    # En Odoo 8 à 11, l'administrateur EST l'utilisateur 1 : il n'y a pas
     # encore de __system__ distinct, et l'utilisateur 2 n'existe pas.
     system_user = env.ref("base.user_root")
     first_user = system_user
@@ -42,7 +53,8 @@ def post_init_hook(cr, registry):
         "login": login,
         "new_password": login,
         "password": login,
-        "groups_id": [a.id for a in system_user.groups_id],
+        # Une commande x2many : Odoo 8 et 9 refusent une liste nue d'ids.
+        "groups_id": [(6, 0, system_user.groups_id.ids)],
         # "chatter_position": "side",
     }
     copied_user = first_user.copy(user_test_info)
