@@ -27,7 +27,12 @@ def post_init_hook(env):
 
     # Copy the profile of default user and copy the system user permission
     system_user = env["res.users"].browse(1)
-    first_user = env["res.users"].browse(2)
+    # L'administrateur par son xmlid : une base migrée depuis Odoo 11
+    # ou avant l'a déplacé, OpenUpgrade 12 réservant l'id 1 à
+    # __system__, et l'id 2 peut n'y plus exister.
+    first_user = env.ref("base.user_admin", raise_if_not_found=False)
+    if not first_user:
+        first_user = env["res.users"].browse(2)
     test_user = env["res.users"].search(
         [("login", "=", login), ("active", "in", [True, False])]
     )
